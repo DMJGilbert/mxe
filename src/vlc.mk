@@ -6,8 +6,8 @@ $(PKG)_FILE     := $(PKG).tar.xz
 $(PKG)_WEBSITE  := http://videolan.org
 $(PKG)_URL      := http://ftp.videolan.org/pub/videolan/$(PKG)/$($(PKG)_VERSION)/$(PKG)-$($(PKG)_VERSION).tar.xz
 $(PKG)_DEPS     := gcc qt dbus lua libgcrypt libmad gnutls ffmpeg \
-                mingw-w64 libdvdread libshout faad2 a52dec twolame flac speexdsp gstreamer \
-                libmodplug libcddb smpeg2 libgcrypt jack librsvg libsamplerate glew
+                mingw-w64 libdvdread libdvdnav libshout faad2 a52dec twolame flac speexdsp gstreamer \
+                libmodplug libcddb smpeg2 libgcrypt jack librsvg libsamplerate glew opencv sdl_image
 
 define $(PKG)_BUILD
     # Enforce static - https://wiki.videolan.org/Win32Compile/#Static_compilation_of_plugins
@@ -32,27 +32,19 @@ define $(PKG)_BUILD
         $(MXE_CONFIGURE_OPTS) \
     	--with-mad='$(PREFIX)/$(TARGET)' \
         --enable-ffmpeg \
-        --with-ffmpeg-mp3lame \
-        --with-ffmpeg-faac \
-        --with-ffmpeg-zlib \
+        --enable-ffmpeg-merge \
         --disable-qt \
         --disable-libgcrypt \
         --disable-update-check \
         --disable-dbus \
-        --disable-dbus-control \
         --disable-lua \
     	--disable-directx \
-        --disable-avcodec \
-        $(if $(BUILD_STATIC), \
-            --enable-static --disable-shared , \
-            --disable-static --enable-shared ) \
     	--disable-vlc \
         --disable-dca \
-    	--disable-swscale \
         --disable-live555 \
         --disable-schroedinger \
         --disable-goom \
-        --disable-qt4 --disable-skins2
+        --disable-skins2
 
     #    LDFLAGS="-L$(PREFIX)/$(TARGET)/lib" \
     #    LIBXML2_CFLAGS="-I$(PREFIX)/$(TARGET)/include/libxml2" \

@@ -1,22 +1,23 @@
-# This file is part of MXE. See LICENSE.md for licensing information.
+# This file is part of MXE.
+# See index.html for further information.
 
 PKG             := ffmpeg
 $(PKG)_WEBSITE  := https://ffmpeg.org/
 $(PKG)_IGNORE   :=
-$(PKG)_VERSION  := 3.2.4
-$(PKG)_CHECKSUM := c0fa3593a2e9e96ace3c1757900094437ad96d1d6ca19f057c378b5f394496a4
+$(PKG)_VERSION  := 2.8.11
+$(PKG)_CHECKSUM := 9987e0f6b1f66311390f807a0c18ad9c90652b5097cff17b3dcbeabdd89f8d32
 $(PKG)_SUBDIR   := $(PKG)-$($(PKG)_VERSION)
 $(PKG)_FILE     := $(PKG)-$($(PKG)_VERSION).tar.bz2
 $(PKG)_URL      := https://ffmpeg.org/releases/$($(PKG)_FILE)
 $(PKG)_URL_2    := https://launchpad.net/ffmpeg/$(call SHORT_PKG_VERSION,$(PKG))/$($(PKG)_VERSION)/+download/$($(PKG)_FILE)
 $(PKG)_DEPS     := gcc bzip2 gnutls lame libass libbluray libbs2b libcaca \
                    libvpx opencore-amr opus sdl speex theora vidstab \
-                   vo-amrwbenc vorbis x264 xvidcore yasm zlib
+                   vo-aacenc vo-amrwbenc vorbis x264 xvidcore yasm zlib
 
 # DO NOT ADD fdk-aac OR openssl SUPPORT.
 # Although they are free softwares, their licenses are not compatible with
 # the GPL, and we'd like to enable GPL in our default ffmpeg build.
-# See docs/index.html#potential-legal-issues
+# See index.html#potential-legal-issues
 
 define $(PKG)_UPDATE
     $(WGET) -q -O- 'https://ffmpeg.org/releases/' | \
@@ -59,6 +60,7 @@ define $(PKG)_BUILD
         --enable-libspeex \
         --enable-libtheora \
         --enable-libvidstab \
+        --enable-libvo-aacenc \
         --enable-libvo-amrwbenc \
         --enable-libvorbis \
         --enable-libvpx \
