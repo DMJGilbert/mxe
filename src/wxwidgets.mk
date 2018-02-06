@@ -9,7 +9,7 @@ $(PKG)_CHECKSUM := 346879dc554f3ab8d6da2704f651ecb504a22e9d31c17ef5449b129ed7115
 $(PKG)_SUBDIR   := wxWidgets-$($(PKG)_VERSION)
 $(PKG)_FILE     := wxWidgets-$($(PKG)_VERSION).tar.bz2
 $(PKG)_URL      := https://$(SOURCEFORGE_MIRROR)/project/wxwindows/$($(PKG)_VERSION)/$($(PKG)_FILE)
-$(PKG)_DEPS     := gcc expat jpeg libiconv libpng sdl tiff zlib
+$(PKG)_DEPS     := cc expat jpeg libiconv libpng sdl tiff zlib
 
 define $(PKG)_UPDATE
     $(WGET) -q -O- 'https://sourceforge.net/projects/wxwindows/files/' | \
@@ -18,10 +18,7 @@ define $(PKG)_UPDATE
 endef
 
 define $(PKG)_CONFIGURE_OPTS
-        --host='$(TARGET)' \
-        --build="`config.guess`" \
-        --disable-shared \
-        --prefix='$(PREFIX)/$(TARGET)' \
+        $(MXE_CONFIGURE_OPTS) \
         --enable-gui \
         --disable-stl \
         --enable-threads \
@@ -67,6 +64,7 @@ define $(PKG)_BUILD
     -$(MAKE) -C '$(1).unicode/locale' -j '$(JOBS)' allmo \
         $(MXE_DISABLE_CRUFT)
     $(MAKE) -C '$(1).unicode' -j 1 install \
+        $(if $(BUILD_SHARED),DLLDEST='/../bin') \
         $(MXE_DISABLE_CRUFT) __install_wxrc___depname=
     $(INSTALL) -m755 '$(PREFIX)/$(TARGET)/bin/wx-config' \
                      '$(PREFIX)/bin/$(TARGET)-wx-config'
@@ -78,4 +76,3 @@ define $(PKG)_BUILD
         `'$(TARGET)-wx-config' --cflags --libs`
 endef
 
-$(PKG)_BUILD_SHARED =
