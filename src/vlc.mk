@@ -11,20 +11,20 @@ $(PKG)_DEPS     := gcc qt dbus lua libgcrypt libmad gnutls ffmpeg \
 
 define $(PKG)_BUILD
     # Enforce static - https://wiki.videolan.org/Win32Compile/#Static_compilation_of_plugins
-    #/build/mxe/usr/lib/gcc/x86_64-w64-mingw32.static/5.4.0/
-    #/build/mxe/usr/x86_64-w64-mingw32.static/lib/
+    #/build/mxe/usr/lib/gcc/x86_64-w64-mingw32.static.posix/5.4.0/
+    #/build/mxe/usr/x86_64-w64-mingw32.static.posix/lib/
 
-    cd /build/mxe/usr/lib/gcc/x86_64-w64-mingw32.static/5.4.0/ && rm -f libstdc++-6.dll libstdc++.dll.a libgcc_s.a libgcc_s_sjlj-1.dll && true
-    cd /build/mxe/usr/x86_64-w64-mingw32.static/lib/ && rm -f libstdc++-6.dll libstdc++.dll.a libgcc_s.a libgcc_s_sjlj-1.dll && true
+    cd /build/mxe/usr/lib/gcc/x86_64-w64-mingw32.static.posix/5.4.0/ && rm -f libstdc++-6.dll libstdc++.dll.a libgcc_s.a libgcc_s_sjlj-1.dll && true
+    cd /build/mxe/usr/x86_64-w64-mingw32.static.posix/lib/ && rm -f libstdc++-6.dll libstdc++.dll.a libgcc_s.a libgcc_s_sjlj-1.dll && true
 
-    cd /build/mxe/usr/lib/gcc/x86_64-w64-mingw32.static/5.4.0/ && rm -f libpthread.dll.a libwinpthread.dll.a && true
-    cd /build/mxe/usr/x86_64-w64-mingw32.static/lib/ && rm -f libpthread.dll.a libwinpthread.dll.a && true
+    cd /build/mxe/usr/lib/gcc/x86_64-w64-mingw32.static.posix/5.4.0/ && rm -f libpthread.dll.a libwinpthread.dll.a && true
+    cd /build/mxe/usr/x86_64-w64-mingw32.static.posix/lib/ && rm -f libpthread.dll.a libwinpthread.dll.a && true
 
-    cd /build/mxe/usr/lib/gcc/x86_64-w64-mingw32.static/5.4.0/ && ln -s libgcc_eh.a libgcc_s.a
-    cd /build/mxe/usr/x86_64-w64-mingw32.static/lib/ && ln -s libgcc_eh.a libgcc_s.a
+    cd /build/mxe/usr/lib/gcc/x86_64-w64-mingw32.static.posix/5.4.0/ && ln -s libgcc_eh.a libgcc_s.a
+    cd /build/mxe/usr/x86_64-w64-mingw32.static.posix/lib/ && ln -s libgcc_eh.a libgcc_s.a
 
-    rm -f /build/mxe/usr/lib/gcc/x86_64-w64-mingw32.static/bin/libwinpthread-1.dll && true
-    rm -f  /build/mxe/usr/x86_64-w64-mingw32.static/bin/libwinpthread-1.dll && true
+    rm -f /build/mxe/usr/lib/gcc/x86_64-w64-mingw32.static.posix/bin/libwinpthread-1.dll && true
+    rm -f  /build/mxe/usr/x86_64-w64-mingw32.static.posix/bin/libwinpthread-1.dll && true
 
     #Bootstrap
     cd '$(1)' && ./bootstrap
