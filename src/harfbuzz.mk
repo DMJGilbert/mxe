@@ -4,8 +4,8 @@ PKG             := harfbuzz
 $(PKG)_WEBSITE  := https://wiki.freedesktop.org/www/Software/HarfBuzz/
 $(PKG)_DESCR    := HarfBuzz
 $(PKG)_IGNORE   :=
-$(PKG)_VERSION  := 1.7.5
-$(PKG)_CHECKSUM := 84574e1b1f65ca694cb8fb6905309665c0368af18a312357f8ff886ee2f29563
+$(PKG)_VERSION  := 1.8.4
+$(PKG)_CHECKSUM := 3c592f86fa0da69e2e0e98cae9f5d5b61def3bb7948aa00ca45748f27fa545fd
 $(PKG)_SUBDIR   := $(PKG)-$($(PKG)_VERSION)
 $(PKG)_FILE     := $(PKG)-$($(PKG)_VERSION).tar.bz2
 $(PKG)_URL      := https://www.freedesktop.org/software/$(PKG)/release/$($(PKG)_FILE)
@@ -23,6 +23,7 @@ define $(PKG)_BUILD
     cd '$(1)' && ./configure \
         $(MXE_CONFIGURE_OPTS) \
         ac_cv_header_sys_mman_h=no \
+        CXXFLAGS='-std=c++11' \
         LIBS='-lstdc++'
     $(MAKE) -C '$(1)' -j '$(JOBS)' install
 endef

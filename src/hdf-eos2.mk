@@ -1,7 +1,7 @@
 # This file is part of MXE. See LICENSE.md for licensing information.
 
 PKG             := hdf-eos2
-$(PKG)_WEBSITE  := http://hdfeos.org/software/library.php
+$(PKG)_WEBSITE  := https://hdfeos.org/software/library.php
 $(PKG)_DESCR    := HDF-EOS2
 $(PKG)_IGNORE   :=
 $(PKG)_VERSION  := 19v1.00
@@ -22,9 +22,9 @@ define $(PKG)_BUILD
     cd '$(SOURCE_DIR)' && chmod -R ugo+w .
     cd '$(SOURCE_DIR)' && autoconf
     cd '$(BUILD_DIR)' && '$(SOURCE_DIR)/configure' \
-	    $(MXE_CONFIGURE_OPTS) \
-	    --includedir='$(PREFIX)/$(TARGET)/include/$(PKG)' \
-	    --libdir='$(PREFIX)/$(TARGET)/lib/$(PKG)' \
+        $(MXE_CONFIGURE_OPTS) \
+        --includedir='$(PREFIX)/$(TARGET)/include/$(PKG)' \
+        --libdir='$(PREFIX)/$(TARGET)/lib/$(PKG)' \
         --enable-install-include \
         ac_cv_func_malloc_0_nonnull=yes \
         ac_cv_func_realloc_0_nonnull=yes

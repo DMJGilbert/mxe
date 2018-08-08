@@ -4,13 +4,13 @@ PKG             := freetds
 $(PKG)_WEBSITE  := http://www.freetds.org/
 $(PKG)_DESCR    := FreeTDS
 $(PKG)_IGNORE   :=
-$(PKG)_VERSION  := 1.00.80
-$(PKG)_CHECKSUM := d3508fe31d59b40fb5a5bdf040941652b40b7f7c2f23a93f980e7ad6b72a419f
+$(PKG)_VERSION  := 1.00.92
+$(PKG)_CHECKSUM := 8b747585bc25037edd2c74e89bc784f43956b711904e00f6ccd09822493f5427
 $(PKG)_SUBDIR   := $(PKG)-$($(PKG)_VERSION)
 $(PKG)_FILE     := $(PKG)-$($(PKG)_VERSION).tar.bz2
 $(PKG)_URL      := ftp://ftp.freetds.org/pub/$(PKG)/stable/$($(PKG)_FILE)
 $(PKG)_URL_2    := https://fossies.org/linux/privat/$($(PKG)_FILE)
-$(PKG)_DEPS     := cc gnutls libiconv
+$(PKG)_DEPS     := cc openssl libiconv
 
 define $(PKG)_UPDATE
     $(WGET) -q -O- 'ftp://ftp.freetds.org/pub/freetds/stable/' | \
@@ -29,7 +29,8 @@ define $(PKG)_BUILD
         --enable-sspi \
         --disable-threadsafe \
         --with-tdsver=7.2 \
-        --with-gnutls \
-        PKG_CONFIG='$(TARGET)-pkg-config'
+        --with-openssl \
+        PKG_CONFIG='$(TARGET)-pkg-config' \
+        CFLAGS=-D_WIN32_WINNT=0x0600
     $(MAKE) -C '$(1)' -j '$(JOBS)' install man_MANS=
 endef
