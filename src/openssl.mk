@@ -3,8 +3,8 @@
 PKG             := openssl
 $(PKG)_WEBSITE  := https://www.openssl.org/
 $(PKG)_IGNORE   :=
-$(PKG)_VERSION  := 1.1.0h
-$(PKG)_CHECKSUM := 5835626cde9e99656585fc7aaa2302a73a7e1340bf8c14fd635a62c66802a517
+$(PKG)_VERSION  := 1.1.1a
+$(PKG)_CHECKSUM := fc20130f8b7cbd2fb918b2f14e2f429e109c31ddd0fb38fc5d71d9ffed3f9f41
 $(PKG)_SUBDIR   := openssl-$($(PKG)_VERSION)
 $(PKG)_FILE     := openssl-$($(PKG)_VERSION).tar.gz
 $(PKG)_URL      := https://www.openssl.org/source/$($(PKG)_FILE)
@@ -34,7 +34,7 @@ define $(PKG)_BUILD
     $(MAKE) -C '$(1)' all install_sw -j 1 \
         CC='$(TARGET)-gcc' \
         RANLIB='$(TARGET)-ranlib' \
-        AR='$(TARGET)-ar rcu' \
+        AR='$(TARGET)-ar' \
         RC='$(TARGET)-windres' \
         CROSS_COMPILE='$(TARGET)-' \
         $(if $(BUILD_SHARED), ENGINESDIR='$(PREFIX)/$(TARGET)/bin/engines')
